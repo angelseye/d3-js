@@ -10,7 +10,7 @@ var chart = d3.select('.chart')
 
 // download and implement data
 d3.tsv("js/people.tsv", type, function(error, data){
-    x.domain([0, d3.max(data, function(d){ return d.age; })]);
+    x.domain([0, d3.max(data, function(d){ return d.value; })]);
 		chart.attr("height", barHeight * data.length);
 
 		var bar = chart.selectAll("g")
@@ -19,20 +19,20 @@ d3.tsv("js/people.tsv", type, function(error, data){
 				.attr('transform', function(d, i){ return "translate(0," + i * barHeight + ")"; });
 
 		bar.append("rect")
-				.attr("width", function(d){ return x(d.age); })
+				.attr("width", function(d){ return x(d.value); })
 				.attr("height", barHeight - 1);
 
 		bar.append("text")
-				.attr("x", function(d){ return x(d.age) - 3; })
+				.attr("x", function(d){ return x(d.value) - 3; })
 				.attr("y", barHeight / 2)
 				.attr("dy", ".35em")
-				.text(function(d){ return d.age; });
+				.text(function(d){ return d.value; });
 		
 });
 
 
 function type(d){
-	d.age = +d.age;
+	d.value = +d.value;
 	return d;
 }
 
